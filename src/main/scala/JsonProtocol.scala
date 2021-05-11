@@ -4,26 +4,29 @@ import spray.json.{DefaultJsonProtocol, DeserializationException, JsNumber, JsOb
  * @author Santosh
  */
 
-/*
+/**
+ * Reading/ Writing of Block data from/ to Json
+ */
+
 object JsonProtocol extends DefaultJsonProtocol {
 
   implicit object BlockJsonFormat extends RootJsonFormat[Block] {
-    def write(t: Block) = JsObject(
-      "index" -> JsNumber(t.index),
-      "timestamp" -> JsNumber(t.timestamp),
-      "data" -> JsString(t.data),
-      "previousHash" -> JsString(t.previousHash)
+    def write(b: Block) = JsObject(
+      "index" -> JsNumber(b.index),
+      "timestamp" -> JsNumber(b.timestamp),
+      "data" -> JsString(b.data),
+      "previousHash" -> JsString(b.previousHash),
+      "hash" -> JsString(b.hash)
     )
 
     def read(value: JsValue) = {
-      value.asJsObject.getFields("index", "timestamp", "data", "previousHash") match {
-        case Seq(JsNumber(index), JsNumber(timestamp), JsString(data), JsString(previousHash)) =>
-          new Block(index.toInt, timestamp.toLong, data, previousHash)
-        case _ => throw new DeserializationException("Block expected")
+      value.asJsObject.getFields("index", "timestamp", "data", "previousHash", "hash") match {
+        case Seq(JsNumber(index), JsNumber(timestamp), JsString(data), JsString(previousHash), JsString(hash)) =>
+           Block(index.toInt, timestamp.toLong, data, previousHash, hash)
+        case _ => throw  DeserializationException("Block expected")
       }
     }
 
   }
 
 }
-*/
