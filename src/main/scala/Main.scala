@@ -13,7 +13,7 @@ import scala.language.postfixOps
  * Creates an Actor for the main system
  */
 
-object main extends App {
+object Main extends App {
 
   implicit val timeout: Timeout = Timeout(20 seconds)
 
