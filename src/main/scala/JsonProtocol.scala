@@ -11,7 +11,7 @@ import spray.json.{DefaultJsonProtocol, DeserializationException, JsNumber, JsOb
 object JsonProtocol extends DefaultJsonProtocol {
 
   implicit object BlockJsonFormat extends RootJsonFormat[Block] {
-    def write(b: Block) = JsObject(
+    def write(b: Block): JsObject = JsObject(
       "index" -> JsNumber(b.index),
       "timestamp" -> JsNumber(b.timestamp),
       "data" -> JsString(b.data),
@@ -19,7 +19,7 @@ object JsonProtocol extends DefaultJsonProtocol {
       "hash" -> JsString(b.hash)
     )
 
-    def read(value: JsValue) = {
+    def read(value: JsValue): Block = {
       value.asJsObject.getFields("index", "timestamp", "data", "previousHash", "hash") match {
         case Seq(JsNumber(index), JsNumber(timestamp), JsString(data), JsString(previousHash), JsString(hash)) =>
            Block(index.toInt, timestamp.toLong, data, previousHash, hash)

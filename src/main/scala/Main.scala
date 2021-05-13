@@ -2,10 +2,11 @@
  * @author Santosh
  */
 
-import BlockActor.GenesisBlock
+import BlockActor.{AddBlock, GenesisBlock, GetLatestBlock}
 import akka.actor.{ActorRef, ActorSystem, PoisonPill}
 import akka.pattern.ask
 import akka.util.Timeout
+
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
@@ -21,6 +22,8 @@ object Main extends App {
 
   val blockActor: ActorRef = system.actorOf(BlockActor.props())
 
+
   blockActor ? GenesisBlock
-  blockActor ! PoisonPill
+  blockActor ? AddBlock
+  blockActor ? GetLatestBlock
 }
