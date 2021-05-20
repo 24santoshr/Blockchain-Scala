@@ -22,8 +22,13 @@ object Main extends App {
 
   val blockActor: ActorRef = system.actorOf(BlockActor.props())
 
+val  blockchain = Blockchain()
 
-  blockActor ? GenesisBlock
+  blockchain.addBlock()
+  blockchain.addBlock()
+  blockchain.addBlock()
+
+  /*blockActor ? GenesisBlock
   blockActor ? AddBlock
   blockActor ? GetLatestBlock
-}
+*/}
