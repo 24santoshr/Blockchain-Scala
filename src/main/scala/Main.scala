@@ -24,9 +24,9 @@ object Main extends App {
 
 val  blockchain = Blockchain()
 
+  /*blockchain.addBlock()
   blockchain.addBlock()
-  blockchain.addBlock()
-  blockchain.addBlock()
+  blockchain.addBlock()*/
 
   /*blockActor ? GenesisBlock
   blockActor ? AddBlock

@@ -29,12 +29,12 @@ class BlockActor extends Actor with ActorLogging {
       blockchain.genesisBlock
     // sender ! (s"${result.foreach((e: Block) => print(e.toJson))}")
 
-    case GetLatestBlock =>
+   /* case GetLatestBlock =>
       blockchain.getLatestBlock
 
     case AddBlock =>
       val result = blockchain.addBlock()
-      sender ! s"${result.foreach((e: Block) => print(e.toJson))}"
+      sender ! s"${result.foreach((e: Block) => print(e.toJson))}"*/
     case x => log.warning("Received unknown message: [{}] ", x)
 
   }
