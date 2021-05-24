@@ -1,9 +1,8 @@
 /**
  * @author Santosh
  */
-
+/*
 import BlockActor.{AddBlock, GenesisBlock, GetLatestBlock}
-import JsonProtocol.BlockJsonFormat
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import spray.json.enrichAny
@@ -52,6 +51,6 @@ object BlockActor {
 
 
 }
-
+*/
 
 

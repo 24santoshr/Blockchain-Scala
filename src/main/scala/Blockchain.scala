@@ -2,36 +2,51 @@
  * @author Santosh
  */
 
-import JsonProtocol.{BlockJsonFormat, StringJsonFormat, seqFormat}
-import shapeless.syntax.std.tuple.productTupleOps
-import spray.json.enrichAny
 
-import scala.collection.immutable.Set.EmptySet
+import scala.collection.mutable.{ArrayBuffer}
 
-case class Blockchain()  {
 
-  var blockchainData: Block = genesisBlock
+case class Blockchain() {
 
-  def genesisBlock: Block = {
 
-    val timestamp = System.currentTimeMillis()
-    val data = "Genesis Block"
-    val previousHash = "0"
-    val nonce = 0
-    val currentHash = getHash(nonce, previousHash, timestamp, data)
+  val chain = ArrayBuffer(createGenesisBlock())
 
-    val createdGenesisBlock = (Block(timestamp, List(), previousHash, currentHash))
-    createdGenesisBlock
+  def createGenesisBlock(): Block = {
+    Block(System.currentTimeMillis(), List(), "")
   }
 
-  def getHash(nonce: Int,previousHash: String, timestamp: Long, data: String): String = {
-    Crypto.sha256Hash(previousHash + timestamp + data.toJson)
+  def getLatestBlock(): Block = {
+    chain.last
   }
 
-  def mineBlock(difficulty: Int) = {???}
+  def addBlock(newBlock: Block): List[Block] = {
 
+    println(getLatestBlock().previousHash, getLatestBlock().currentHash)
+    newBlock.previousHash = getLatestBlock().currentHash
+    newBlock.currentHash = newBlock.calculateHash()
+    val result = chain += newBlock
+    result.toList
+  }
 
+  def isChainValid(): Boolean = {
 
+    for (i <- 0 to chain.length) {
 
+      val currentBlock = chain(i)
+      val previousBlock = chain(i - 1)
+
+      if (currentBlock.currentHash != currentBlock.calculateHash()) {
+        return false
+      }
+
+      if (currentBlock.previousHash != previousBlock.currentHash) {
+        return false
+      }
+
+    }
+    true
+  }
 }
+
+
 

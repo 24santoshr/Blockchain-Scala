@@ -2,7 +2,8 @@
  * @author Santosh
  */
 
-import BlockActor.{AddBlock, GenesisBlock, GetLatestBlock}
+//import BlockActor.{AddBlock, GenesisBlock, GetLatestBlock}
+
 import akka.actor.{ActorRef, ActorSystem, PoisonPill}
 import akka.pattern.ask
 import akka.util.Timeout
@@ -20,15 +21,13 @@ object Main extends App {
 
   implicit val system: ActorSystem = ActorSystem("Blockchain")
 
-  val blockActor: ActorRef = system.actorOf(BlockActor.props())
+  //val blockActor: ActorRef = system.actorOf(BlockActor.props())
 
-val  blockchain = Blockchain()
+  val blockchain = Blockchain()
 
-  /*blockchain.addBlock()
-  blockchain.addBlock()
-  blockchain.addBlock()*/
+  val result = blockchain.addBlock(Block(System.currentTimeMillis(), List(), ""))
+  val result2 = blockchain.addBlock(Block(System.currentTimeMillis(), List(), ""))
 
-  /*blockActor ? GenesisBlock
-  blockActor ? AddBlock
-  blockActor ? GetLatestBlock
-*/}
+
+  println(result2)
+}
