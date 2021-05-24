@@ -4,6 +4,8 @@
 
 //import BlockActor.{AddBlock, GenesisBlock, GetLatestBlock}
 
+import JsonProtocol.{BlockJsonFormat, IntJsonFormat, listFormat}
+import spray.json.enrichAny
 import akka.actor.{ActorRef, ActorSystem, PoisonPill}
 import akka.pattern.ask
 import akka.util.Timeout
@@ -25,9 +27,8 @@ object Main extends App {
 
   val blockchain = Blockchain()
 
-  val result = blockchain.addBlock(Block(System.currentTimeMillis(), List(), ""))
-  val result2 = blockchain.addBlock(Block(System.currentTimeMillis(), List(), ""))
+  blockchain.addBlock(Block(System.currentTimeMillis(), List(), ""))
 
+  blockchain.addBlock(Block(System.currentTimeMillis(), List(Transaction("a", "b", 3)), ""))
 
-  println(result2)
 }

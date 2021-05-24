@@ -32,6 +32,7 @@ object JsonProtocol extends DefaultJsonProtocol {
       "timestamp" -> JsNumber(b.timestamp),
       "transaction" -> JsArray(b.transaction.map(_.toJson).toVector),
       "previousHash" -> JsString(b.previousHash)
+      //"currentHash" -> JsString(b.currentHash)
     )
 
     def read(value: JsValue): Block = {

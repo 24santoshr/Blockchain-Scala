@@ -1,18 +1,23 @@
+
 /**
  * @author Santosh
  */
 
+import JsonProtocol.BlockJsonFormat
+import spray.json.enrichAny
 
-import scala.collection.mutable.{ArrayBuffer}
+import scala.collection.mutable.ArrayBuffer
 
 
 case class Blockchain() {
 
-
+  val difficulty = 3
   val chain = ArrayBuffer(createGenesisBlock())
 
-  def createGenesisBlock(): Block = {
-    Block(System.currentTimeMillis(), List(), "")
+  def createGenesisBlock() = {
+    val result = Block(System.currentTimeMillis(), List(), "")
+    println(result.toJson.toString())
+    result
   }
 
   def getLatestBlock(): Block = {
@@ -21,9 +26,9 @@ case class Blockchain() {
 
   def addBlock(newBlock: Block): List[Block] = {
 
-    println(getLatestBlock().previousHash, getLatestBlock().currentHash)
     newBlock.previousHash = getLatestBlock().currentHash
-    newBlock.currentHash = newBlock.calculateHash()
+    newBlock.mineBlock(difficulty)
+    //newBlock.currentHash = newBlock.calculateHash()
     val result = chain += newBlock
     result.toList
   }

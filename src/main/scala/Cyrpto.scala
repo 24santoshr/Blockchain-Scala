@@ -11,3 +11,4 @@ object Crypto {
     new BigInteger(1, MessageDigest.getInstance("SHA-256").digest(value.getBytes("UTF-8"))))
 
 }
+
