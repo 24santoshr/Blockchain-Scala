@@ -27,8 +27,21 @@ object Main extends App {
 
   val blockchain = Blockchain()
 
-  blockchain.addBlock(Block(System.currentTimeMillis(), List(), ""))
+  blockchain.createTransaction(Transaction("address1", "address2", 100))
 
-  blockchain.addBlock(Block(System.currentTimeMillis(), List(Transaction("a", "b", 3)), ""))
+  blockchain.createTransaction(Transaction("address2", "address1", 50))
+
+  println("starting mining...")
+
+  blockchain.minePendingTransactions("santosh-address")
+
+  println(s"Balance of Santosh is ${blockchain.getBalanceOfAddress("santosh-address")}")
+
+  println("starting mining again...")
+
+  blockchain.minePendingTransactions("santosh-address")
+
+  println(s"Balance of Santosh is ${blockchain.getBalanceOfAddress("santosh-address")}")
+
 
 }

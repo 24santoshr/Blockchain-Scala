@@ -15,7 +15,7 @@ import scala.collection.mutable.ArrayBuffer
  * @param transaction  : denotes transactional data of the block
  * @param previousHash : benotes previous SHA256 value of the block
  */
-case class Block(var timestamp: Long, var transaction: List[Transaction], var previousHash: String = "") {
+case class Block(var timestamp: Long, var transaction: Seq[Transaction], var previousHash: String = " ") {
 
   var currentHash = calculateHash()
   var nonce = 0
